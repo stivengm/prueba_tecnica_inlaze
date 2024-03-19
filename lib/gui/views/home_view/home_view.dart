@@ -53,6 +53,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
           : Scaffold(
             backgroundColor: backgroundApp,
             appBar: AppBar(
+              backgroundColor: backgroundApp,
               actions: [
                 IconButton(
                     onPressed: () {}, icon: const Icon(Icons.notifications))
