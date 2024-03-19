@@ -25,7 +25,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
   }
 
   @override
-  void showContactList(List<Book> items) {
+  void showBooksList(List<Book> items) {
     context.read<HomeBloc>().add(const HandleLoader(false));
     setState(() {
       books = items;
@@ -104,7 +104,10 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                           books: books,
                           nameSection: "Nuevos libros",
                         ),
-                        // TODO: Crear una lista de libros vistos recientemente.
+                        HeaderSectionsBooks(
+                          books: books,
+                          nameSection: "Vistos recientemente",
+                        ),
                       ],
                     ),
                   ],
