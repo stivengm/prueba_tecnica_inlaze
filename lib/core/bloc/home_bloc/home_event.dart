@@ -6,3 +6,8 @@ sealed class HomeEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class HandleLoader extends HomeEvent {
+  final bool isLoading;
+  const HandleLoader(this.isLoading);
+}
