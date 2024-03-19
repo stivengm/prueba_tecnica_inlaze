@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/home_view/widgets/item_book.dart';
+import 'package:prueba_tecnica_inlaze/gui/views/details_book_view/details_book_view.dart';
 
 class HeaderSectionsBooks extends StatelessWidget {
   final List<Book> books;
@@ -24,10 +25,7 @@ class HeaderSectionsBooks extends StatelessWidget {
               itemCount: books.length,
               itemBuilder: (context, i) {
                 return GestureDetector(
-                  onTap: () {
-                    print("Abrir libro.");
-                    Navigator.pushNamed(context, 'details_book');
-                  },
+                  onTap: () => Navigator.pushNamed(context, 'details_book', arguments: DetailsBookArguments(books[i])),
                   child: ItemBook(book: books[i])
                 );
               }
