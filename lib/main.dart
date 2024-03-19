@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prueba_tecnica_inlaze/core/config/app_paths.dart';
-import 'package:prueba_tecnica_inlaze/core/config/theme/app_theme.dart';
+import 'package:prueba_tecnica_inlaze/core/config/index.dart';
 
 void main() {
   runApp(const MyApp());
