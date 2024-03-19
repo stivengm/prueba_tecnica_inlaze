@@ -6,7 +6,7 @@ class AppTheme {
   ThemeData theme(TextTheme textTheme) {
     return ThemeData(
       textTheme: GoogleFonts.montserratTextTheme(textTheme),
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF67952)),
       useMaterial3: true,
     );
   }
