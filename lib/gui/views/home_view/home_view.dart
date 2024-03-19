@@ -78,13 +78,15 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("Explorar más.."),
+                              Text("Explorar más...", style: Theme.of(context).textTheme.headlineMedium!.copyWith( fontSize: 20.0 )),
                               const SizedBox(height: 10.0),
                               TextField(
                                 textInputAction: TextInputAction.search,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                   hintText: 'Buscar',
+                                  helperText: "Ejemplo: Flutter, C#, NodeJs",
+                                  helperStyle: const TextStyle(fontSize: 10.0),
                                   hintStyle: const TextStyle(fontSize: 16),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
