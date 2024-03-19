@@ -23,7 +23,13 @@ class HeaderSectionsBooks extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: books.length,
               itemBuilder: (context, i) {
-                return ItemBook(book: books[i]);
+                return GestureDetector(
+                  onTap: () {
+                    print("Abrir libro.");
+                    Navigator.pushNamed(context, 'details_book');
+                  },
+                  child: ItemBook(book: books[i])
+                );
               }
             ),
           )
