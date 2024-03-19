@@ -20,7 +20,12 @@ class ItemBook extends StatelessWidget {
         children: [
           SizedBox(
             width: 180.0,
-            child: Image.network(book.image),
+            height: 198,
+            child: FadeInImage(
+              fadeInDuration: const Duration(milliseconds: 200),
+              placeholder: const AssetImage('assets/loader_image.gif'),
+              image: NetworkImage(book.image),
+            ),
           ),
           Text(book.price, style: Theme.of(context).textTheme.titleMedium!.copyWith( fontWeight: FontWeight.bold, fontSize: 15.0 )),
           Expanded(
