@@ -23,10 +23,13 @@ class DetailsBookView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Image(
-            width: media.height * .8,
-            height: media.height * .6,
-            image: NetworkImage(args.book.image)
+          Hero(
+            tag: args.book.isbn13,
+            child: Image(
+              width: media.height * .8,
+              height: media.height * .6,
+              image: NetworkImage(args.book.image)
+            ),
           ),
           Text(args.book.title),
           const Text("Description: "),
