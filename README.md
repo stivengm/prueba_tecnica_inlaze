@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+> Versión Flutter: 3.19.3
+
 
 
 ## Pruebas y funcionalidad.
