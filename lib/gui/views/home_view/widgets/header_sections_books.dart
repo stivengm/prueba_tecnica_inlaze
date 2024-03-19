@@ -15,7 +15,7 @@ class HeaderSectionsBooks extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            child: Text("Nuevos libros", style: Theme.of(context).textTheme.headlineSmall,),
+            child: Text(nameSection, style: Theme.of(context).textTheme.headlineSmall,),
           ),
           SizedBox(
             height: 315.0,
