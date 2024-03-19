@@ -18,7 +18,7 @@ class HeaderSectionsBooks extends StatelessWidget {
             child: Text("Nuevos libros", style: Theme.of(context).textTheme.headlineSmall,),
           ),
           SizedBox(
-            height: 300.0,
+            height: 315.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: books.length,

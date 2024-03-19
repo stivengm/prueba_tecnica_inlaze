@@ -12,9 +12,17 @@ class ItemBook extends StatelessWidget {
       width: 180.0,
       decoration: BoxDecoration(
         color: whiteColor,
-        borderRadius: BorderRadius.circular(10)
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+      margin: const EdgeInsets.only(top: 10.0, right: 6.0, bottom: 20.0, left: 6.0),
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Column(
         children: [
