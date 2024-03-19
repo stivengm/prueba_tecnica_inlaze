@@ -18,7 +18,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> implements HomeViewModel {
   late HomePresenter _homePresenter;
-  late List<Book> books = [];
 
   _HomeViewState() {
     _homePresenter = HomePresenter(this);
@@ -27,9 +26,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
   @override
   void showBooksList(List<Book> items) {
     context.read<HomeBloc>().add(const HandleLoader(false));
-    setState(() {
-      books = items;
-    });
+    context.read<HomeBloc>().add( HandleBooks(items) );
   }
 
   @override
@@ -48,7 +45,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        return state.isLoading 
+        return state.isLoading && state.books!.isEmpty
           ? const LoaderApp() 
           : Scaffold(
             backgroundColor: backgroundApp,
@@ -105,13 +102,13 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                           ),
                         ),
                         HeaderSectionsBooks(
-                          books: books,
+                          books: state.books!,
                           nameSection: "Nuevos libros",
                         ),
-                        HeaderSectionsBooks(
-                          books: books,
-                          nameSection: "Vistos recientemente",
-                        ),
+                        // HeaderSectionsBooks(
+                        //   books: books,
+                        //   nameSection: "Vistos recientemente",
+                        // ),
                       ],
                     ),
                   ],

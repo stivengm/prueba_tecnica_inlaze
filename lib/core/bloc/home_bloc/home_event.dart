@@ -11,3 +11,8 @@ class HandleLoader extends HomeEvent {
   final bool isLoading;
   const HandleLoader(this.isLoading);
 }
+
+class HandleBooks extends HomeEvent {
+  final List<Book> books;
+  const HandleBooks(this.books);
+}
