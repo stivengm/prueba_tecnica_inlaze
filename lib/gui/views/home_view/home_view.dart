@@ -50,11 +50,12 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Explorar más.."),
+                    const SizedBox(height: 10.0),
                     TextField(
                       textInputAction: TextInputAction.search,
                       keyboardType: TextInputType.text,
@@ -77,18 +78,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                 ),
               ),
               HeaderSectionsBooks(books: books, nameSection: "Nuevos libros",),
-              Container(
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                      child: Text("Nuevos libros")
-                    ),
-                    Text("Libros..")
-                  ],
-                ),
-              )
+              // TODO: Crear una lista de libros vistos recientemente.
             ],
           ),
         ),
