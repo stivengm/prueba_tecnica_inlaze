@@ -22,7 +22,10 @@ class ItemBook extends StatelessWidget {
             width: 180.0,
             child: Image.network(book.image),
           ),
-          Text(book.title, textAlign: TextAlign.center,)
+          Text(book.price, style: Theme.of(context).textTheme.titleMedium!.copyWith( fontWeight: FontWeight.bold, fontSize: 15.0 )),
+          Expanded(
+            child: Text(book.title, style: Theme.of(context).textTheme.headlineMedium!.copyWith( fontWeight: FontWeight.w400, fontSize: 15.0 ), textAlign: TextAlign.center,)
+          )
         ],
       ),
     );
