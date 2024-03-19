@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
+import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
+import 'package:prueba_tecnica_inlaze/core/presenter/home_presenter.dart';
 
-import 'package:http/http.dart' as http;
+import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
+import 'package:prueba_tecnica_inlaze/gui/views/home_view/home_viewmodel.dart';
+import 'package:prueba_tecnica_inlaze/gui/views/home_view/widgets/header_sections_books.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -10,21 +13,20 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> implements HomeViewModel {
+
+  late HomePresenter _homePresenter;
+  late List<Book> books = [];
+
+
+  _HomeViewState() {
+    _homePresenter = HomePresenter(this);
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getBooks();
-  }
-
-  getBooks() async {
-    // https://api.itbook.store/1.0/new
-    final url = Uri.https('api.itbook.store', '1.0/new');
-    var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    _homePresenter.getNewBooks();
   }
 
   @override
@@ -32,55 +34,78 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: backgroundApp,
       appBar: AppBar(
-
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications
+            )
+          )
+        ],
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Explorar más.."),
-                  TextField(
-                    textInputAction: TextInputAction.search,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: 'Buscar',
-                      hintStyle: const TextStyle(fontSize: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(
-                          width: 0, 
-                          style: BorderStyle.none,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Explorar más.."),
+                    TextField(
+                      textInputAction: TextInputAction.search,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        hintText: 'Buscar',
+                        hintStyle: const TextStyle(fontSize: 16),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            width: 0, 
+                            style: BorderStyle.none,
+                          ),
                         ),
+                        filled: true,
+                        fillColor: whiteColor,
+                        contentPadding: const EdgeInsets.all(16),
                       ),
-                      filled: true,
-                      fillColor: whiteColor,
-                      contentPadding: const EdgeInsets.all(16),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                    child: Text("Nuevos libros")
-                  ),
-                  Text("Libros..")
-                ],
-              ),
-            )
-          ],
+              HeaderSectionsBooks(books: books, nameSection: "Nuevos libros",),
+              Container(
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                      child: Text("Nuevos libros")
+                    ),
+                    Text("Libros..")
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       )
     );
+  }
+
+  @override
+  void showContactList(List<Book> items) {
+    // TODO: implement showContactList
+    setState(() {
+      books = items;
+    });
+  }
+
+  @override
+  void showError() {
+    // TODO: implement showError
   }
 }
