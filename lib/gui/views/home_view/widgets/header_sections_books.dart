@@ -13,11 +13,11 @@ class HeaderSectionsBooks extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            child: Text("Nuevos libros"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            child: Text("Nuevos libros", style: Theme.of(context).textTheme.headlineSmall,),
           ),
-          Container(
+          SizedBox(
             height: 300.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
