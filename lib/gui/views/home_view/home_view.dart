@@ -60,6 +60,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
               onRefresh: () {
                 return Future.delayed(const Duration(seconds: 2), () {
                   context.read<HomeBloc>().add(const HandleLoader(true));
+                  context.read<HomeBloc>().add(const HandleBooks([]));
                   _homePresenter.getNewBooks();
                 });
               },
