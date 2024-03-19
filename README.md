@@ -1,6 +1,18 @@
-# prueba_tecnica_inlaze
+# Prueba Técnica INLAZE
 
 A new Flutter project.
+
+
+
+## Pruebas y funcionalidad.
+
+
+### LoginView
+
+### HomeView
+
+### DetailsBookView
+
 
 ## Getting Started
 
