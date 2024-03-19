@@ -43,42 +43,51 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
           )
         ],
       ),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: RefreshIndicator(
+        onRefresh: () {
+          return Future.delayed(const Duration(seconds: 2), () {
+            _homePresenter.getNewBooks();
+          });
+        },
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Explorar más.."),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      textInputAction: TextInputAction.search,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        hintText: 'Buscar',
-                        hintStyle: const TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            width: 0, 
-                            style: BorderStyle.none,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Explorar más.."),
+                        const SizedBox(height: 10.0),
+                        TextField(
+                          textInputAction: TextInputAction.search,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Buscar',
+                            hintStyle: const TextStyle(fontSize: 16),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                width: 0, 
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: whiteColor,
+                            contentPadding: const EdgeInsets.all(16),
                           ),
                         ),
-                        filled: true,
-                        fillColor: whiteColor,
-                        contentPadding: const EdgeInsets.all(16),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  HeaderSectionsBooks(books: books, nameSection: "Nuevos libros",),
+                  // TODO: Crear una lista de libros vistos recientemente.
+                ],
               ),
-              HeaderSectionsBooks(books: books, nameSection: "Nuevos libros",),
-              // TODO: Crear una lista de libros vistos recientemente.
             ],
           ),
         ),
