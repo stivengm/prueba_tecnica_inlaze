@@ -9,6 +9,42 @@ Este proyecto está desarrollador en Flutter con el lenguaje de programación Da
 
 > Versión Flutter: 3.19.3
 
+## Arquitectura Aplicación BooksIT
+
+Para este desarrollo, la `view` utiliza el `presenter` para consumir la información del servicio, formatear la información de los libros nuevos y las búsquedas y una vez tenerla lista actualizar el `BLoC` y este a su vez utiliza el contenido de la `view` cuando cambia de estado.
+
+```mermaid
+
+graph LR;
+
+B[BLoC];
+V[Vista];
+M[Model];
+P[Presenter];
+S[estado];
+E[eventos];
+I{Hay Contenido};
+
+
+V --> B
+B --> V
+
+V --> P
+P --> M
+M --> P
+
+P --> I
+I --> |SI| S
+I --> |NO| E
+E --> S
+
+
+
+S --> B
+
+
+```
+
 
 ## Pruebas y funcionalidad.
 
