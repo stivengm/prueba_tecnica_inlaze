@@ -6,6 +6,7 @@ import 'package:prueba_tecnica_inlaze/core/bloc/home_bloc/home_bloc.dart';
 import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
 import 'package:prueba_tecnica_inlaze/core/presenter/home_presenter.dart';
 import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
+import 'package:prueba_tecnica_inlaze/gui/views/details_book_view/details_book_view.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/home_view/home_viewmodel.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/home_view/widgets/header_sections_books.dart';
 import 'package:prueba_tecnica_inlaze/gui/widgets/loader_app_widget.dart';
@@ -165,21 +166,33 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                           shrinkWrap: true,
                           physics: const ScrollPhysics(),
                           itemCount: state.resultsSearch!.length,
-                          itemBuilder: (context, index) {
+                          itemBuilder: (context, i) {
+                            var newBook = Book(
+                              image: state.resultsSearch![i].image,
+                              isbn13: 'search-${state.resultsSearch![i].isbn13}',
+                              price: state.resultsSearch![i].price,
+                              subtitle: state.resultsSearch![i].subtitle,
+                              title: state.resultsSearch![i].title,
+                              url: state.resultsSearch![i].url
+                            );
                             return ListTile(
-                              leading: FadeInImage(
-                                fadeInDuration: const Duration(milliseconds: 200),
-                                placeholder: const AssetImage('assets/loader_image.gif'),
-                                image: NetworkImage(state.resultsSearch![index].image),
+                              leading: Hero(
+                                tag: newBook.isbn13,
+                                child: FadeInImage(
+                                  fadeInDuration: const Duration(milliseconds: 200),
+                                  placeholder: const AssetImage('assets/loader_image.gif'),
+                                  image: NetworkImage(newBook.image),
+                                ),
                               ),
                               trailing: const FaIcon(
                                 FontAwesomeIcons.arrowRight
                               ),
-                              title: Text(state.resultsSearch![index].title),
-                              subtitle: Text(state.resultsSearch![index].subtitle),
+                              title: Text(newBook.title),
+                              subtitle: Text(newBook.subtitle),
                               onTap: () {
-                                // TODO:
-                                // 1. Enviar a mirar el detalle.
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                Navigator.pushNamed(context, 'details_book', arguments: DetailsBookArguments(newBook));
+                                context.read<HomeBloc>().add( const HandleFocusSearch(false) );
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 _homePresenter.saveSearchRecient(searchController.text.trim(), true);
                               },
@@ -223,13 +236,13 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                                 shrinkWrap: true,
                                 physics: const ScrollPhysics(),
                                 itemCount: state.searchRecient!.length,
-                                itemBuilder: (context, index) {
+                                itemBuilder: (context, i) {
                                   return ListTile(
-                                    title: Text(state.searchRecient![index]),
+                                    title: Text(state.searchRecient![i]),
                                     trailing: IconButton(
                                       onPressed: () {
                                         List<String> searchRecient = state.searchRecient!;
-                                        searchRecient.removeAt(index);
+                                        searchRecient.removeAt(i);
                                         context.read<HomeBloc>().add( SearchRecient(searchRecient) );
                                         context.read<HomeBloc>().add( const HandleFocusSearch(false) );
                                         FocusManager.instance.primaryFocus?.unfocus();
@@ -239,8 +252,8 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                                       ),
                                     ),
                                     onTap: () {
-                                      searchController.text = state.searchRecient![index];
-                                      _homePresenter.saveSearchRecient(state.searchRecient![index], false);
+                                      searchController.text = state.searchRecient![i];
+                                      _homePresenter.saveSearchRecient(state.searchRecient![i], false);
                                       FocusManager.instance.primaryFocus?.unfocus();
                                     },
                                   );
