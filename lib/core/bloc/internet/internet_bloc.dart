@@ -12,9 +12,9 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
   InternetBloc() : super(InternetInitial()) {
     on<InternetEvent>((event, emit) {
       if (event is ConnectedEvent) {
-        emit(ConnectedState(message: "Connected"));
+        emit(const ConnectedState(message: "Connected"));
       } else if (event is NotConnectedEvent) {
-        emit(NotConnectedState(message: "Not connected"));
+        emit(const NotConnectedState(message: "Not connected"));
       }
 
     });
