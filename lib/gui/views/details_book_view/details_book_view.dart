@@ -21,24 +21,44 @@ class DetailsBookView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: backgroundApp,
       ),
-      body: Column(
-        children: [
-          Hero(
-            tag: args.book.isbn13,
-            child: Image(
-              width: media.height * .8,
-              height: media.height * .6,
-              image: NetworkImage(args.book.image)
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 20.0),
+          child: Column(
+
+            children: [
+              Hero(
+                tag: args.book.isbn13,
+                child: Image(
+                  width: media.height * 1,
+                  height: media.height * .5,
+                  image: NetworkImage(args.book.image, scale: .1)
+                ),
+              ),
+              Text(args.book.title, style: Theme.of(context).textTheme.headlineMedium!.copyWith( fontWeight: FontWeight.w600, fontSize: 19.0 ), textAlign: TextAlign.center),
+              const SizedBox(height: 5.0),
+              args.book.subtitle != "" ? RichText(
+                text: TextSpan(
+                  text: 'Descripción: ',
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith( fontWeight: FontWeight.bold, fontSize: 15 ),
+                  children: [
+                    TextSpan(
+                      text: args.book.subtitle,
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith( fontWeight: FontWeight.normal, fontSize: 15 ),
+                    )
+                  ]
+                ),
+              ) : const SizedBox(),
+              const SizedBox(height: 20.0),
+              Text("Precio: ${args.book.price}", style: Theme.of(context).textTheme.headlineLarge!.copyWith( fontSize: 20.0, fontWeight: FontWeight.bold ),),
+              const SizedBox(height: 30.0),
+              SizedBox(
+                width: media.width * .5,
+                child: PrimaryButton(text: 'Comprar', onPressed: () {},),
+              )
+            ],
           ),
-          Text(args.book.title),
-          const Text("Description: "),
-          const Text("Precio: 12312312"),
-          SizedBox(
-            width: media.width * .5,
-            child: PrimaryButton(text: 'Comprar', onPressed: () {},),
-          )
-        ],
+        ),
       ),
     );
   }
