@@ -149,7 +149,6 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(state.valueSearch),
                               Text("Explorar más...", style: Theme.of(context).textTheme.headlineMedium!.copyWith( fontSize: 20.0 )),
                               const SizedBox(height: 10.0),
                               TextField(
@@ -250,10 +249,6 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                                   books: state.books!,
                                   nameSection: "Nuevos libros",
                                 ),
-                                // HeaderSectionsBooks(
-                                //   books: books,
-                                //   nameSection: "Vistos recientemente",
-                                // ),
                               ],
                             ),
                             // Búsqueda
