@@ -5,11 +5,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:prueba_tecnica_inlaze/core/bloc/home_bloc/home_bloc.dart';
 import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
 import 'package:prueba_tecnica_inlaze/core/presenter/home_presenter.dart';
+import 'package:prueba_tecnica_inlaze/core/services/shared_preferences/key_value_storage_impl.dart';
 import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/details_book_view/details_book_view.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/home_view/home_viewmodel.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/home_view/widgets/header_sections_books.dart';
 import 'package:prueba_tecnica_inlaze/gui/widgets/loader_app_widget.dart';
+import 'package:prueba_tecnica_inlaze/gui/widgets/primary_button.dart';
+import 'package:prueba_tecnica_inlaze/gui/widgets/rich_text_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -68,6 +71,40 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
     _homePresenter.getNewBooks();
   }
 
+  void openDialogEditTask( BuildContext context) async {
+    final keyValueStorageImpl = KeyValueStorageImpl();
+
+    final email = await keyValueStorageImpl.getValue<String>('email');
+    final password = await keyValueStorageImpl.getValue<String>('password');
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("SharedPreferences", style: Theme.of(context).textTheme.headlineLarge!.copyWith( fontWeight: FontWeight.bold, fontSize: 20.0 ), textAlign: TextAlign.center,),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            RichTextWidget(name: "Email: ", value: "$email"),
+            const SizedBox(height: 10.0),
+            RichTextWidget(name: "Contraseña: ", value: "$password"),
+          ],
+        ),
+        actions: [
+          SizedBox(
+            child: PrimaryButton(
+              text: 'Aceptar', 
+              onPressed: () {
+                Navigator.pop(context);
+              }
+            ),
+          )
+        ],
+      )
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -79,7 +116,12 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
             appBar: AppBar(
               backgroundColor: backgroundApp,
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
+                IconButton(
+                  onPressed: () => openDialogEditTask(context),
+                  icon: const Icon(
+                    Icons.notifications
+                  )
+                )
               ],
             ),
             body: RefreshIndicator(

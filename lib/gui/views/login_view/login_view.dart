@@ -28,7 +28,7 @@ class _LoginViewState extends State<LoginView> implements LoginViewModel {
 
   @override
   void sendLogin() {
-    // TODO: implement sendLogin
+    Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
   }
   
   @override
@@ -178,6 +178,5 @@ class _LoginViewState extends State<LoginView> implements LoginViewModel {
     if (!isValidForm) return;
 
     _loginPresenter.setLoggedUser(emailController.text.trim(), passwordController.text.trim());
-    // Navigator.pushNamed(context, 'home');
   }
 }

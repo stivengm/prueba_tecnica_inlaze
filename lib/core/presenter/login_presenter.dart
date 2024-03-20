@@ -9,9 +9,9 @@ class LoginPresenter {
   LoginPresenter(this._view);
 
   void setLoggedUser( String email, String password ) async {
-    print("Email: $email  Y Password: $password");
     try {
-      await keyValueStorageImpl.setKeyValue('test_email', email);
+      await keyValueStorageImpl.setKeyValue('email', email);
+      await keyValueStorageImpl.setKeyValue('password', password);
 
       _view.sendLogin();
     } catch (e) {
@@ -21,7 +21,8 @@ class LoginPresenter {
   }
 
   void logout() async {
-    await keyValueStorageImpl.removeKey('test_email');
+    await keyValueStorageImpl.removeKey('email');
+    await keyValueStorageImpl.removeKey('password');
   }
   
 }
