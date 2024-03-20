@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prueba_tecnica_inlaze/core/bloc/internet/internet_bloc.dart';
 import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
+import 'package:prueba_tecnica_inlaze/gui/views/no_internet_view/no_internet_view.dart';
 import 'package:prueba_tecnica_inlaze/gui/widgets/primary_button.dart';
 
 class LoginView extends StatefulWidget {
@@ -137,19 +138,10 @@ class _LoginViewState extends State<LoginView> {
         }
 
         else if (state is NotConnectedState) {
-          return Scaffold(
-            body: Center(
-              child: Text("No hay conexión a internet"),
-            ),
-          );
+          return const NoInternetView();
         }
         
-        return Scaffold(
-            body: Center(
-              child: Text("No hay conexión a internet"),
-            ),
-          );
-
+        return const NoInternetView();
       },
     );
   }
