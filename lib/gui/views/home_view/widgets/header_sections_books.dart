@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prueba_tecnica_inlaze/core/bloc/home_bloc/home_bloc.dart';
 import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/home_view/widgets/item_book.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/details_book_view/details_book_view.dart';
@@ -25,7 +27,11 @@ class HeaderSectionsBooks extends StatelessWidget {
               itemCount: books.length,
               itemBuilder: (context, i) {
                 return GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, 'details_book', arguments: DetailsBookArguments(books[i])),
+                  onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    Navigator.pushNamed(context, 'details_book', arguments: DetailsBookArguments(books[i]));
+                    context.read<HomeBloc>().add( const HandleFocusSearch(false) );
+                  },
                   child: ItemBook(book: books[i])
                 );
               }

@@ -11,8 +11,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit( state.copyWith( isLoading: event.isLoading ) );
     });
 
+    on<HandleFocusSearch>((event, emit) {
+      emit( state.copyWith( isFocusedSearch: event.isFocusedSearch ) );
+    });
+
+    on<HandleValueSearch>((event, emit) {
+      emit( state.copyWith( valueSearch: event.valueSearch ) );
+    });
+
+    on<SearchRecient>((event, emit) {
+      emit( state.copyWith( searchRecient: event.searchRecient ) );
+    });
+
     on<HandleBooks>((event, emit) {
       emit( state.copyWith( books: event.books ) );
+    });
+
+    on<HandleBooksRecientVisited>((event, emit) {
+      emit( state.copyWith( booksRecientVisited: event.booksRecientVisited ) );
+    });
+
+    on<HandleResultSearch>((event, emit) {
+      emit( state.copyWith( resultsSearch: event.resultsSearch ) );
     });
   }
 }

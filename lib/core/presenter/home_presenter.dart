@@ -26,4 +26,23 @@ class HomePresenter {
     }
   }
 
+  void saveSearchRecient(String book, bool eventSearch) async {
+    try {
+      if (book == "") {
+        _view.searchBooksList([], book, false);
+        return;
+      }
+      var response = await _homeService.getSearchBook(book);
+      final List books = response['books'];
+
+      var listBook = books
+        .map((book) => Book.fromJson(book))
+        .toList();
+      _view.searchBooksList(listBook, book, eventSearch);
+    } catch (e) {
+      _view.showError();
+    }
+
+  }
+
 }

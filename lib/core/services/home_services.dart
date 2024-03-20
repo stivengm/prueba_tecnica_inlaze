@@ -11,4 +11,13 @@ class HomeService {
     }
   }
 
+  Future<dynamic> getSearchBook(String book) async {
+    try {
+      final resp = HttpProvider(endPoint: '1.0/search/$book').get();
+      return resp;
+    } catch (e) {
+      return e;
+    }
+  }
+
 }
