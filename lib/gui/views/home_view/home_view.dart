@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
     _homePresenter.getNewBooks();
   }
 
-  void openDialogEditTask( BuildContext context) async {
+  void openDialogEditTask(context) async {
     final keyValueStorageImpl = KeyValueStorageImpl();
 
     final email = await keyValueStorageImpl.getValue<String>('email');
