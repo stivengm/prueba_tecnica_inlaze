@@ -11,7 +11,11 @@ A new Flutter project.
 
 ### LoginView
 
+El campo `Email` tiene la acción en el teclado para pasar al siguiente campo de texto y el campo `Contraseña` tiene la acción de cerrar el teclado, en este caso al ingresar a cualquiera de estos dos campos y al dar tap en la pantalla en otro lado elimina el focus del campo y sale de este, se podrá usar cualquier usuario y contraseña para poder iniciar sesión, pero las validaciones de los campos tiene que ser un email válido y una contraseña con mínimo 6 caracteres. Al presionar el botón `Iniciar sesión` va a almacenar el usuario y contraseña en los `SharedPreferences` y se podrán consultar desde la pantalla de HomeView en la campana del AppBar en la parte superior derecha y una vez echo esto redirige a la pantalla HomeView.
+
 ### HomeView
+
+
 
 ### DetailsBookView
 
