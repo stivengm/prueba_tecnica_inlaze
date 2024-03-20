@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
 import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
 
@@ -53,14 +54,15 @@ class ItemBook extends StatelessWidget {
               width: 40.0,
               height: 40.0,
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(.5),
+                color: primaryColor.withOpacity(.2),
                 borderRadius: BorderRadius.circular(100)
               ),
               child: IconButton(
                 onPressed: () {},
-                icon: const Icon(
-                  Icons.heart_broken
-                ),
+                icon: const FaIcon(
+                  FontAwesomeIcons.heart,
+                  color: primaryColor,
+                )
               ),
             )
           ),
