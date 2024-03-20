@@ -1,7 +1,10 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prueba_tecnica_inlaze/core/bloc/internet/internet_bloc.dart';
+import 'package:prueba_tecnica_inlaze/core/presenter/login_presenter.dart';
 import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
+import 'package:prueba_tecnica_inlaze/gui/views/login_view/login_viewmodel.dart';
 import 'package:prueba_tecnica_inlaze/gui/views/no_internet_view/no_internet_view.dart';
 import 'package:prueba_tecnica_inlaze/gui/widgets/primary_button.dart';
 
@@ -12,11 +15,31 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends State<LoginView> implements LoginViewModel {
+  late LoginPresenter _loginPresenter;
   bool _passwordVisible = true;
   final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  _LoginViewState() {
+    _loginPresenter = LoginPresenter(this);
+  }
+
+  @override
+  void sendLogin() {
+    // TODO: implement sendLogin
+  }
+  
+  @override
+  void sendLogout() {
+    // TODO: implement sendLogout
+  }
+    
+  @override
+  void showError() {
+    // TODO: implement showError
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +79,9 @@ class _LoginViewState extends State<LoginView> {
                                   autocorrect: false,
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
+                                  validator: (email) => email != null && !EmailValidator.validate(email)
+                                    ? 'Ingrese un email válido'
+                                    : null,
                                   decoration: InputDecoration(
                                       labelText: 'Email',
                                       labelStyle:
@@ -147,6 +173,11 @@ class _LoginViewState extends State<LoginView> {
   }
 
   login() {
-    Navigator.pushNamed(context, 'home');
+    FocusManager.instance.primaryFocus?.unfocus();
+    final isValidForm = formKey.currentState!.validate();
+    if (!isValidForm) return;
+
+    _loginPresenter.setLoggedUser(emailController.text.trim(), passwordController.text.trim());
+    // Navigator.pushNamed(context, 'home');
   }
 }
