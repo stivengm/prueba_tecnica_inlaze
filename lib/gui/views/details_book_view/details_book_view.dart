@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
 import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
 import 'package:prueba_tecnica_inlaze/gui/widgets/primary_button.dart';
@@ -20,12 +21,20 @@ class DetailsBookView extends StatelessWidget {
       backgroundColor: backgroundApp,
       appBar: AppBar(
         backgroundColor: backgroundApp,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const FaIcon(
+              FontAwesomeIcons.heart
+            ),
+            color: primaryColor,
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 20.0),
           child: Column(
-
             children: [
               Hero(
                 tag: args.book.isbn13,
