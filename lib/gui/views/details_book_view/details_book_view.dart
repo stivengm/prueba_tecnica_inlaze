@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:prueba_tecnica_inlaze/core/model/book_data.dart';
 import 'package:prueba_tecnica_inlaze/gui/app_style.dart';
+import 'package:prueba_tecnica_inlaze/gui/views/pay_view/pay_view.dart';
 import 'package:prueba_tecnica_inlaze/gui/widgets/primary_button.dart';
 
 class DetailsBookArguments {
@@ -63,7 +64,7 @@ class DetailsBookView extends StatelessWidget {
               const SizedBox(height: 30.0),
               SizedBox(
                 width: media.width * .5,
-                child: PrimaryButton(text: 'Comprar', onPressed: () {},),
+                child: PrimaryButton(text: 'Comprar', onPressed: () => Navigator.pushNamed(context, 'pay', arguments: DetailsPayBookArguments(args.book))),
               )
             ],
           ),
