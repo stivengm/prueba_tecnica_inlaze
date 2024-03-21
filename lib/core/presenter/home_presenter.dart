@@ -20,7 +20,7 @@ class HomePresenter {
       var listBook = books
         .map((book) => Book.fromJson(book))
         .toList();
-      _view.showBooksList(listBook);
+      _view.showBooksList(listBook.sublist(0, 10));
     } catch (e) {
       _view.showError();
     }
