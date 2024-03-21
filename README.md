@@ -62,3 +62,7 @@ Para poder buscar un libro en específico habrá un buscador en donde podrá dig
 De igual forma habrá un scroll horizontal con la sección de los nuevos libros, al dar clic en alguno se enviará al detalle del libro seleccionado.
 En caso de que se requiera cerrar sesión se elimina la información de los `SharedPreferences` y retorna a la pantalla `Login` y una vez ahí si se inicia nuevamente sesión los libros ya están en caché y se mostrará al instante esa pantalla.
 
+### DetailsBook
+
+En los detalles del libro se muestra la información del libro, en caso de que se requiera comprar el libro se da al botón `Comprar` y este abre un WebView con la url de la compra del libro.
+
