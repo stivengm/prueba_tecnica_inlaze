@@ -231,7 +231,6 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                               title: Text(newBook.title),
                               subtitle: Text(newBook.subtitle),
                               onTap: () {
-                                FocusManager.instance.primaryFocus?.unfocus();
                                 Navigator.pushNamed(context, 'details_book', arguments: DetailsBookArguments(newBook));
                                 context.read<HomeBloc>().add( const HandleFocusSearch(false) );
                                 FocusManager.instance.primaryFocus?.unfocus();
@@ -304,7 +303,38 @@ class _HomeViewState extends State<HomeView> implements HomeViewModel {
                   ],
                 ),
               ),
-            ));
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: 0,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  label: 'Inicio',
+                  icon: FaIcon(
+                    FontAwesomeIcons.houseChimney
+                  )
+                ),
+                BottomNavigationBarItem(
+                  label: 'Favoritos',
+                  icon: FaIcon(
+                    FontAwesomeIcons.heart
+                  )
+                ),
+                BottomNavigationBarItem(
+                  label: 'Configuración',
+                  icon: FaIcon(
+                    FontAwesomeIcons.gear
+                  )
+                )
+              ],
+              selectedItemColor: primaryColor,
+              onTap: (i) {
+                context.read<HomeBloc>().add( const HandleFocusSearch(false) );
+                FocusManager.instance.primaryFocus?.unfocus();
+                _homePresenter.saveSearchRecient("", false);
+                searchController.text = "";
+              },
+            ),
+          );
       },
     );
   }
