@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_tecnica_inlaze/core/services/shared_preferences/key_value_storage_impl.dart';
+import 'package:prueba_tecnica_inlaze/gui/widgets/primary_button.dart';
 
 class HomeDrawer extends StatefulWidget {
 
@@ -21,7 +22,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getSharedPreferences();
   }
@@ -35,37 +35,49 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationDrawer(
-      selectedIndex: navDrawerIndex,
-      onDestinationSelected: (value) {
-        setState(() {
-          navDrawerIndex = value;
-        });
-
-        Navigator.pop(context);
-        widget.scaffoldKey.currentState?.closeDrawer();
-      },
-      children: [
-
-        Container(
-          height: 200.0,
-          width: 100.0,
-          decoration: const BoxDecoration(
-            color: Colors.grey,
-            // borderRadius: BorderRadius.circular(100)
-          ),
+    return Drawer(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 13.0, horizontal: 15.0),
+        child: Column(
+          children: [
+            const DrawerHeader(
+              child: CircleAvatar(
+                radius: 60.0,
+                backgroundColor: Color(0xFF778899),
+                backgroundImage: AssetImage("assets/user.webp"),
+              ),
+            ),
+            const SizedBox(height: 15.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Email: $emailSharedPreferences"),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    child: Divider(),
+                  ),
+                  Text("Password: $passwordSharedPreferences")
+                ],
+              ),
+            ),
+            SizedBox(
+              child: PrimaryButton(
+                text: 'Cerrar sesión',
+                onPressed: () => logout(context)
+              ),
+            )
+          ],
         ),
-        const SizedBox(height: 10.0),
-
-        Text(emailSharedPreferences),
-
-        const Padding(
-          padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
-          child: Divider(),
-        ),
-                
-        
-      ]
+      ),
     );
   }
+
+  logout(context) async  {
+    final keyValueStorageImpl = KeyValueStorageImpl();
+    await keyValueStorageImpl.removeKey('email');
+    await keyValueStorageImpl.removeKey('password');
+    Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
+  }
+
 }
